@@ -3,6 +3,8 @@ package com.packt.cardatabase.domain;
 
 
 import javax.persistence.CascadeType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,15 +13,16 @@ import javax.persistence.OneToMany;
 import java.util.List;
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
 public class Owner {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long ownerid;
-	private String lastname;
+	private String firstname, lastname;
 	
-	private String firstname;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy="owner")
+	@JsonIgnore
 	private List<Car> cars;
 	public Owner() {}
 	
